@@ -158,3 +158,52 @@ def excluir_todos():
     return jsonify({
         "mensagem": "Todos os lançamentos foram removidos"
     })
+
+
+# ==========================================
+# RESUMO GERAL
+# ==========================================
+
+@app.route("/resumo", methods=["GET"])
+def resumo():
+
+    conn = get_connection()
+
+    receitas = conn.execute("""
+        SELECT COALESCE(SUM(valor),0)
+        FROM lancamentos
+        WHERE tipo='receita'
+    """).fetchone()[0]
+
+    gastos = conn.execute("""
+        SELECT COALESCE(SUM(valor),0)
+        FROM lancamentos
+        WHERE tipo='gasto'
+    """).fetchone()[0]
+
+    mes_atual = datetime.now().strftime("%Y-%m")
+
+    receitas_mes = conn.execute("""
+        SELECT COALESCE(SUM(valor),0)
+        FROM lancamentos
+        WHERE tipo='receita'
+        AND mes=?
+    """, (mes_atual,)).fetchone()[0]
+
+    gastos_mes = conn.execute("""
+        SELECT COALESCE(SUM(valor),0)
+        FROM lancamentos
+        WHERE tipo='gasto'
+        AND mes=?
+    """, (mes_atual,)).fetchone()[0]
+
+    conn.close()
+
+    return jsonify({
+        "saldo_atual": round(receitas - gastos, 2),
+        "total_receitas": round(receitas, 2),
+        "total_gastos": round(gastos, 2),
+        "receitas_mes": round(receitas_mes, 2),
+        "gastos_mes": round(gastos_mes, 2),
+        "saldo_mes": round(receitas_mes - gastos_mes, 2)
+    })
