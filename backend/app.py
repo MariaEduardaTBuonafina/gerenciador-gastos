@@ -207,3 +207,74 @@ def resumo():
         "gastos_mes": round(gastos_mes, 2),
         "saldo_mes": round(receitas_mes - gastos_mes, 2)
     })
+
+# ==========================================
+# RELATÓRIOS MENSAIS
+# ==========================================
+
+@app.route("/relatorios", methods=["GET"])
+def relatorios():
+
+    conn = get_connection()
+
+    meses = conn.execute("""
+        SELECT DISTINCT mes
+        FROM lancamentos
+        ORDER BY mes DESC
+    """).fetchall()
+
+    resultado = []
+
+    for m in meses:
+
+        mes = m["mes"]
+
+        receitas = conn.execute("""
+            SELECT COALESCE(SUM(valor),0)
+            FROM lancamentos
+            WHERE tipo='receita'
+            AND mes=?
+        """, (mes,)).fetchone()[0]
+
+        gastos = conn.execute("""
+            SELECT COALESCE(SUM(valor),0)
+            FROM lancamentos
+            WHERE tipo='gasto'
+            AND mes=?
+        """, (mes,)).fetchone()[0]
+
+        maior_gasto = conn.execute("""
+            SELECT descricao, valor
+            FROM lancamentos
+            WHERE tipo='gasto'
+            AND mes=?
+            ORDER BY valor DESC
+            LIMIT 1
+        """, (mes,)).fetchone()
+
+        resultado.append({
+            "mes": mes,
+            "receitas": receitas,
+            "gastos": gastos,
+            "saldo": receitas - gastos,
+            "maior_gasto": dict(maior_gasto) if maior_gasto else None
+        })
+
+    conn.close()
+
+    return jsonify(resultado)
+
+
+# ==========================================
+# START
+# ==========================================
+
+if __name__ == "__main__":
+
+    porta = int(os.environ.get("PORT", 5000))
+
+    app.run(
+        host="0.0.0.0",
+        port=porta,
+        debug=True
+    )
