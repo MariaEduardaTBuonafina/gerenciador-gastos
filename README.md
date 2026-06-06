@@ -4,7 +4,7 @@ Projeto desenvolvido para a disciplina de **DevOps**, com o objetivo de aplicar 
 
 ## 📋 Descrição
 
-O Gerenciador de Gastos Pessoais é uma aplicação web que permite ao usuário registrar receitas e despesas, acompanhar seu saldo financeiro e visualizar relatórios de movimentação mensal.
+O Gerenciador de Gastos Pessoais (Kakebo) é uma aplicação web que permite ao usuário registrar receitas e despesas, acompanhar seu saldo financeiro e visualizar relatórios de movimentação mensal.
 
 A aplicação foi construída utilizando:
 
