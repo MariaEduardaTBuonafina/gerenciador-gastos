@@ -8,7 +8,7 @@ O Gerenciador de Gastos Pessoais (Kakebo) é uma aplicação web que permite ao 
 
 A aplicação foi construída utilizando:
 
-* Frontend em HTML, CSS e JavaScript
+* Frontend em Angular com TypeScript,HTML e CSS
 * Backend em Python com Flask
 * Banco de dados SQLite
 * Docker e Docker Compose para conteinerização
