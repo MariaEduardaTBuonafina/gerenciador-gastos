@@ -64,7 +64,7 @@ Banco SQLite
 projeto/
 │
 ├── frontend/
-│   ├── index.html
+│   ├── home.html
 │   ├── relatorios.html
 │   └── Dockerfile
 │
