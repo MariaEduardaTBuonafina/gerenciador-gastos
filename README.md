@@ -1,300 +1,272 @@
-💰 Gerenciador de Gastos Pessoais
+# 💰 Gerenciador de Gastos Pessoais
 
-Projeto desenvolvido para a disciplina de DevOps, com o objetivo de aplicar conceitos de conteinerização utilizando Docker, integração entre frontend e backend, persistência de dados e desenvolvimento de APIs REST.
+Projeto desenvolvido para a disciplina de **DevOps**, com o objetivo de aplicar conceitos de conteinerização utilizando Docker, integração entre frontend e backend, persistência de dados e desenvolvimento de APIs REST.
 
-
-
-📋 Descrição
+## 📋 Descrição
 
 O Gerenciador de Gastos Pessoais é uma aplicação web que permite ao usuário registrar receitas e despesas, acompanhar seu saldo financeiro e visualizar relatórios de movimentação mensal.
 
-
-
 A aplicação foi construída utilizando:
 
+* Frontend em HTML, CSS e JavaScript
+* Backend em Python com Flask
+* Banco de dados SQLite
+* Docker e Docker Compose para conteinerização
 
+---
 
-Frontend em HTML, CSS e JavaScript
+## 🚀 Funcionalidades
 
-Backend em Python com Flask
+### Lançamentos Financeiros
 
-Banco de dados SQLite
+* Cadastro de receitas
+* Cadastro de gastos
+* Definição de categoria
+* Registro automático da data
+* Exclusão individual de lançamentos
+* Exclusão completa dos lançamentos
 
-Docker e Docker Compose para conteinerização
+### Dashboard Financeiro
 
-🚀 Funcionalidades
+* Saldo atual
+* Total de receitas
+* Total de gastos
+* Saldo mensal
+* Atualização automática dos indicadores
 
-Lançamentos Financeiros
+### Relatórios
 
-Cadastro de receitas
+* Resumo financeiro por mês
+* Receitas por período
+* Gastos por período
+* Saldo mensal
+* Maior gasto registrado em cada mês
 
-Cadastro de gastos
+---
 
-Definição de categoria
+## 🏗️ Arquitetura
 
-Registro automático da data
-
-Exclusão individual de lançamentos
-
-Exclusão completa dos lançamentos
-
-Dashboard Financeiro
-
-Saldo atual
-
-Total de receitas
-
-Total de gastos
-
-Saldo mensal
-
-Atualização automática dos indicadores
-
-Relatórios
-
-Resumo financeiro por mês
-
-Receitas por período
-
-Gastos por período
-
-Saldo mensal
-
-Maior gasto registrado em cada mês
-
-🏗️ Arquitetura
-
+```text
 Frontend (Nginx)
-
-&#x20;       │
-
-&#x20;       ▼
-
+        │
+        ▼
 Backend (Flask API)
-
-&#x20;       │
-
-&#x20;       ▼
-
+        │
+        ▼
 Banco SQLite
+```
 
-📂 Estrutura do Projeto
+---
 
+## 📂 Estrutura do Projeto
+
+```text
 projeto/
-
 │
-
 ├── frontend/
-
 │   ├── index.html
-
 │   ├── relatorios.html
-
 │   └── Dockerfile
-
 │
-
 ├── backend/
-
 │   ├── app.py
-
 │   ├── database.py
-
 │   ├── requirements.txt
-
 │   └── Dockerfile
-
 │
-
 ├── docker-compose.yml
-
 │
-
 └── README.md
+```
 
-🐳 Executando com Docker
+---
 
-Clonar o repositório
+## 🐳 Executando com Docker
 
+### Clonar o repositório
+
+```bash
 git clone <url-do-repositorio>
-
 cd projeto
+```
 
-Construir e iniciar os containers
+### Construir e iniciar os containers
 
+```bash
 docker compose up
+```
 
 Ou em segundo plano:
 
-
-
+```bash
 docker compose up -d
+```
 
-🌐 Acesso
+---
+
+## 🌐 Acesso
 
 Após a inicialização:
 
-
-
 Frontend:
 
-
-
+```text
 http://localhost:8080
+```
 
 Backend:
 
-
-
+```text
 http://localhost:5000
+```
 
-📦 Dependências do Backend
+---
 
-Arquivo requirements.txt:
+## 📦 Dependências do Backend
 
+Arquivo `requirements.txt`:
 
-
+```txt
 flask==3.0.3
-
 flask-cors==4.0.1
+```
 
 Instalação manual:
 
-
-
+```bash
 pip install -r requirements.txt
+```
 
-🔗 Endpoints da API
+---
 
-Verificar Status
+## 🔗 Endpoints da API
 
+### Verificar Status
+
+```http
 GET /
+```
 
 Resposta:
 
-
-
+```json
 {
-
-&#x20; "mensagem": "API funcionando",
-
-&#x20; "status": "ok"
-
+  "mensagem": "API funcionando",
+  "status": "ok"
 }
+```
 
-Listar Lançamentos
+---
 
+### Listar Lançamentos
+
+```http
 GET /lancamentos
+```
 
-Adicionar Lançamento
+---
 
+### Adicionar Lançamento
+
+```http
 POST /lancamentos
+```
 
 Exemplo:
 
-
-
+```json
 {
-
-&#x20; "descricao": "Salário",
-
-&#x20; "valor": 2500,
-
-&#x20; "tipo": "receita",
-
-&#x20; "categoria": "Outros"
-
+  "descricao": "Salário",
+  "valor": 2500,
+  "tipo": "receita",
+  "categoria": "Outros"
 }
+```
 
-Excluir Lançamento
+---
 
+### Excluir Lançamento
+
+```http
 DELETE /lancamentos/{id}
+```
 
-Excluir Todos os Lançamentos
+---
 
+### Excluir Todos os Lançamentos
+
+```http
 DELETE /lancamentos
+```
 
-Resumo Financeiro
+---
 
+### Resumo Financeiro
+
+```http
 GET /resumo
+```
 
 Retorna:
 
-
-
+```json
 {
-
-&#x20; "saldo\_atual": 1500,
-
-&#x20; "receitas\_mes": 2500,
-
-&#x20; "gastos\_mes": 1000,
-
-&#x20; "saldo\_mes": 1500
-
+  "saldo_atual": 1500,
+  "receitas_mes": 2500,
+  "gastos_mes": 1000,
+  "saldo_mes": 1500
 }
+```
 
-Relatórios Mensais
+---
 
+### Relatórios Mensais
+
+```http
 GET /relatorios
+```
 
-💾 Persistência de Dados
+---
+
+## 💾 Persistência de Dados
 
 A aplicação utiliza SQLite para armazenamento local dos lançamentos financeiros.
 
-
-
 Os dados são persistidos através de volume Docker, permitindo que as informações permaneçam salvas mesmo após a reinicialização dos containers.
 
+---
 
+## 👨‍💻 Equipe
 
-👨‍💻 Equipe
+* Maria Eduarda Trevizane
+* Maria Clara Trevizane
+* Luís Fernando Andrade
+* João Vitor Rodrigues
 
-Maria Eduarda Trevizane
+---
 
-Maria Clara Trevizane
+## 📚 Tecnologias Utilizadas
 
-Luís Fernando Andrade
+* HTML5
+* CSS3
+* JavaScript
+* Python 3.11
+* Flask
+* Flask-CORS
+* SQLite
+* Docker
+* Docker Compose
+* Nginx
 
-João Vitor Rodrigues
+---
 
-📚 Tecnologias Utilizadas
-
-HTML5
-
-CSS3
-
-JavaScript
-
-Python 3.11
-
-Flask
-
-Flask-CORS
-
-SQLite
-
-Docker
-
-Docker Compose
-
-Nginx
-
-🎯 Objetivo Acadêmico
+## 🎯 Objetivo Acadêmico
 
 Este projeto foi desenvolvido para demonstrar a aplicação prática dos conceitos de DevOps, incluindo:
 
-
-
-Conteinerização de aplicações
-
-Gerenciamento de dependências
-
-Comunicação entre serviços
-
-Persistência de dados
-
-Automação de ambiente de execução
-
-Padronização de deploy
-
+* Conteinerização de aplicações
+* Gerenciamento de dependências
+* Comunicação entre serviços
+* Persistência de dados
+* Automação de ambiente de execução
+* Padronização de deploy
